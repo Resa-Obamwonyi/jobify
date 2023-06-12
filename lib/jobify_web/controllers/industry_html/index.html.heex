@@ -1,0 +1,23 @@
+<.header>
+  Listing Industries
+  <:actions>
+    <.link href={~p"/industries/new"}>
+      <.button>New Industry</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.table id="industries" rows={@industries} row_click={&JS.navigate(~p"/industries/#{&1}")}>
+  <:col :let={industry} label="Name"><%= industry.name %></:col>
+  <:action :let={industry}>
+    <div class="sr-only">
+      <.link navigate={~p"/industries/#{industry}"}>Show</.link>
+    </div>
+    <.link navigate={~p"/industries/#{industry}/edit"}>Edit</.link>
+  </:action>
+  <:action :let={industry}>
+    <.link href={~p"/industries/#{industry}"} method="delete" data-confirm="Are you sure?">
+      Delete
+    </.link>
+  </:action>
+</.table>

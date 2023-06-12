@@ -1,0 +1,18 @@
+<.header>
+  Job <%= @job.id %>
+  <:subtitle>This is a job record from your database.</:subtitle>
+  <:actions>
+    <.link href={~p"/jobs/#{@job}/edit"}>
+      <.button>Edit job</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.list>
+  <:item title="Title"><%= @job.title %></:item>
+  <:item title="Description"><%= @job.description %></:item>
+  <:item title="Country"><%= @job.country %></:item>
+  <:item title="Published"><%= @job.published %></:item>
+</.list>
+
+<.back navigate={~p"/jobs"}>Back to jobs</.back>

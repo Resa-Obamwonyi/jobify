@@ -1,0 +1,15 @@
+<.header>
+  Industry <%= @industry.id %>
+  <:subtitle>This is a industry record from your database.</:subtitle>
+  <:actions>
+    <.link href={~p"/industries/#{@industry}/edit"}>
+      <.button>Edit industry</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.list>
+  <:item title="Name"><%= @industry.name %></:item>
+</.list>
+
+<.back navigate={~p"/industries"}>Back to industries</.back>
