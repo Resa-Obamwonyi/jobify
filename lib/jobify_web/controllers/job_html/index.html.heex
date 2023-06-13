@@ -1,26 +1,31 @@
 <.header>
   Listing Jobs
   <:actions>
+    <%= if @current_user do %>
     <.link href={~p"/jobs/new"}>
       <.button>New Job</.button>
     </.link>
+    <% end %>
   </:actions>
 </.header>
 
 <.table id="jobs" rows={@jobs} row_click={&JS.navigate(~p"/jobs/#{&1}")}>
   <:col :let={job} label="Title"><%= job.title %></:col>
-  <:col :let={job} label="Description"><%= job.description %></:col>
+  <:col :let={job} label="Industry"><%= job.industry.name %></:col>
   <:col :let={job} label="Country"><%= job.country %></:col>
-  <:col :let={job} label="Published"><%= job.published %></:col>
   <:action :let={job}>
     <div class="sr-only">
-      <.link navigate={~p"/jobs/#{job}"}>Show</.link>
+      <.link navigate={~p"/jobs/#{job}"}>See More</.link>
     </div>
-    <.link navigate={~p"/jobs/#{job}/edit"}>Edit</.link>
+    <%= if @current_user do %>
+      <.link navigate={~p"/jobs/#{job}/edit"}>Edit</.link>
+    <% end %>
   </:action>
   <:action :let={job}>
-    <.link href={~p"/jobs/#{job}"} method="delete" data-confirm="Are you sure?">
-      Delete
-    </.link>
+    <%= if @current_user do %>
+      <.link href={~p"/jobs/#{job}"} method="delete" data-confirm="Are you sure?">
+        Delete
+      </.link>
+    <% end %>
   </:action>
 </.table>

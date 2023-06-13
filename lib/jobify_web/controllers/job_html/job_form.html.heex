@@ -5,6 +5,7 @@
   <.input field={f[:title]} type="text" label="Title" />
   <.input field={f[:description]} type="text" label="Description" />
   <.input field={f[:country]} type="text" label="Country" />
+  <.input field={f[:industry_id]} type="select" label="Industry" options={@industries}/>
   <.input field={f[:published]} type="checkbox" label="Published" />
   <:actions>
     <.button>Save Job</.button>

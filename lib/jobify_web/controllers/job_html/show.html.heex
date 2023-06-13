@@ -1,18 +1,22 @@
 <.header>
-  Job <%= @job.id %>
-  <:subtitle>This is a job record from your database.</:subtitle>
+  <%= @job.title %>, <%= @job.country %>
+  <:subtitle>Please Apply If Qualified</:subtitle>
+
   <:actions>
+    <%= if @current_user do %>
     <.link href={~p"/jobs/#{@job}/edit"}>
       <.button>Edit job</.button>
     </.link>
+    <% end %>
   </:actions>
+
 </.header>
 
 <.list>
   <:item title="Title"><%= @job.title %></:item>
+  <:item title="Industry"><%= @job.industry.name %></:item>
   <:item title="Description"><%= @job.description %></:item>
   <:item title="Country"><%= @job.country %></:item>
-  <:item title="Published"><%= @job.published %></:item>
 </.list>
 
 <.back navigate={~p"/jobs"}>Back to jobs</.back>

@@ -11,10 +11,12 @@ defmodule JobifyWeb.JobController do
 
   def new(conn, _params) do
     changeset = Jobs.change_job(%Job{})
-    render(conn, :new, changeset: changeset)
+    industries = Jobs.list_industries_options()
+    render(conn, :new, changeset: changeset, industries: industries)
   end
 
   def create(conn, %{"job" => job_params}) do
+    industries = Jobs.list_industries_options()
     case Jobs.create_job(job_params) do
       {:ok, job} ->
         conn
@@ -22,7 +24,7 @@ defmodule JobifyWeb.JobController do
         |> redirect(to: ~p"/jobs/#{job}")
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, :new, changeset: changeset)
+        render(conn, :new, changeset: changeset, industries: industries)
     end
   end
 
@@ -33,12 +35,14 @@ defmodule JobifyWeb.JobController do
 
   def edit(conn, %{"id" => id}) do
     job = Jobs.get_job!(id)
+    industries = Jobs.list_industries_options()
     changeset = Jobs.change_job(job)
-    render(conn, :edit, job: job, changeset: changeset)
+    render(conn, :edit, job: job, changeset: changeset, industries: industries)
   end
 
   def update(conn, %{"id" => id, "job" => job_params}) do
     job = Jobs.get_job!(id)
+    industries = Jobs.list_industries_options()
 
     case Jobs.update_job(job, job_params) do
       {:ok, job} ->
@@ -47,7 +51,7 @@ defmodule JobifyWeb.JobController do
         |> redirect(to: ~p"/jobs/#{job}")
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, :edit, job: job, changeset: changeset)
+        render(conn, :edit, job: job, changeset: changeset, industries: industries)
     end
   end
 

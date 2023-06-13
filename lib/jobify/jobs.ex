@@ -18,7 +18,7 @@ defmodule Jobify.Jobs do
 
   """
   def list_jobs do
-    Repo.all(Job)
+    Repo.all(Job) |> Repo.preload(:industry)
   end
 
   @doc """
@@ -35,7 +35,7 @@ defmodule Jobify.Jobs do
       ** (Ecto.NoResultsError)
 
   """
-  def get_job!(id), do: Repo.get!(Job, id)
+  def get_job!(id), do: Repo.get!(Job, id) |> Repo.preload(:industry)
 
   @doc """
   Creates a job.
@@ -114,7 +114,14 @@ defmodule Jobify.Jobs do
 
   """
   def list_industries do
-    Repo.all(Industry)
+    Industry
+    |> order_by(asc: :name)
+    |> Repo.all()
+  end
+
+  def list_industries_options do
+    from(ind in Industry, select: {ind.name, ind.id}, order_by: :name)
+    |> Repo.all()
   end
 
   @doc """

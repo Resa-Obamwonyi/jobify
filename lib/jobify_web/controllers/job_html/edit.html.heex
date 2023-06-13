@@ -3,6 +3,6 @@
   <:subtitle>Use this form to manage job records in your database.</:subtitle>
 </.header>
 
-<.job_form changeset={@changeset} action={~p"/jobs/#{@job}"} />
+<.job_form changeset={@changeset} action={~p"/jobs/#{@job}"} industries={@industries}/>
 
 <.back navigate={~p"/jobs"}>Back to jobs</.back>
