@@ -18,7 +18,9 @@ defmodule Jobify.Jobs do
 
   """
   def list_jobs do
-    Repo.all(Job) |> Repo.preload(:industry)
+    from(job in Job, where: job.published == :true)
+    |> Repo.all()
+    |> Repo.preload(:industry)
   end
 
   @doc """
