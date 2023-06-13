@@ -21,8 +21,8 @@ defmodule JobifyWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :home
-    resources "/job", JobController
-    resources "/industry", IndustryController
+    resources "/jobs", JobController
+    resources "/industries", IndustryController
 
   end
 
