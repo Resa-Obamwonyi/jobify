@@ -17,8 +17,12 @@ defmodule Jobify.Jobs do
       [%Job{}, ...]
 
   """
-  def list_jobs do
-    from(job in Job, where: job.published == :true)
+  def list_jobs(filter) do
+    IO.inspect(filter)
+
+    from(job in Job, where: job.published == :true, order_by: [desc: job.inserted_at])
+    |> Job.industry(filter.industry)
+    # |> Job.pagination(filter.page)
     |> Repo.all()
     |> Repo.preload(:industry)
   end

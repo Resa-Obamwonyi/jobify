@@ -4,9 +4,13 @@ defmodule JobifyWeb.JobController do
   alias Jobify.Jobs
   alias Jobify.Jobs.Job
 
-  def index(conn, _params) do
-    jobs = Jobs.list_jobs()
-    render(conn, :index, jobs: jobs)
+  def index(conn, params) do
+    {changeset, filter} = JobifyWeb.Filters.JobFilter.changeset(params["job_filter"])
+    # IO.inspect(filter)
+    # total = Collection.count_groups(group_filter)
+    jobs = Jobs.list_jobs(filter)
+    industries = Jobs.list_industries_options()
+    render(conn, :index, jobs: jobs, industries: industries, changeset: changeset)
   end
 
   def new(conn, _params) do
