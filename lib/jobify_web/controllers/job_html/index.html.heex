@@ -1,11 +1,9 @@
 <.header>
   Listing Jobs
   <:actions>
-    <%= if @current_user do %>
     <.link href={~p"/jobs/new"}>
       <.button>New Job</.button>
     </.link>
-    <% end %>
     <.link href={~p"/jobs"}>
       <.button>All Jobs</.button>
     </.link>
@@ -29,15 +27,11 @@
     <div class="sr-only">
       <.link navigate={~p"/jobs/#{job}"}>See More</.link>
     </div>
-    <%= if @current_user do %>
       <.link navigate={~p"/jobs/#{job}/edit"}>Edit</.link>
-    <% end %>
   </:action>
   <:action :let={job}>
-    <%= if @current_user do %>
       <.link href={~p"/jobs/#{job}"} method="delete" data-confirm="Are you sure?">
         Delete
       </.link>
-    <% end %>
   </:action>
 </.table>

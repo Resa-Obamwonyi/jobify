@@ -21,9 +21,10 @@ defmodule JobifyWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :home
-    resources "/jobs", JobController
-    resources "/industries", IndustryController
 
+    # TO-DO: Break down the authentication into a separate controller, create urls for view and single view for jobs and industries
+    # TO-DO: For clean up, use libraries to make things cleaner, use taram to shorten filter fields controller
+    # TO-DO: try not to mix controllers and db logics
   end
 
   # Other scopes may use custom stacks.
@@ -69,6 +70,9 @@ defmodule JobifyWeb.Router do
     get "/users/settings", UserSettingsController, :edit
     put "/users/settings", UserSettingsController, :update
     get "/users/settings/confirm_email/:token", UserSettingsController, :confirm_email
+
+    resources "/jobs", JobController
+    resources "/industries", IndustryController
   end
 
   scope "/", JobifyWeb do
@@ -79,5 +83,9 @@ defmodule JobifyWeb.Router do
     post "/users/confirm", UserConfirmationController, :create
     get "/users/confirm/:token", UserConfirmationController, :edit
     post "/users/confirm/:token", UserConfirmationController, :update
+
+    # general url for public or unauthenticated users
+    get "/openings", GeneralJobController, :index
+    get "/openings/:id", GeneralJobController, :show
   end
 end

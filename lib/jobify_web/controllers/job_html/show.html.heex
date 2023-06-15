@@ -3,11 +3,9 @@
   <:subtitle>Please Apply If Qualified</:subtitle>
 
   <:actions>
-    <%= if @current_user do %>
     <.link href={~p"/jobs/#{@job}/edit"}>
       <.button>Edit job</.button>
     </.link>
-    <% end %>
   </:actions>
 
 </.header>

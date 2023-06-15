@@ -1,0 +1,21 @@
+<.header>
+    <%= @job.title %>, <%= @job.country %>
+    <:subtitle>Please Apply If Qualified</:subtitle>
+  
+    <:actions>
+      <.link href={~p"/openings/#{@job}"}>
+        <.button>Apply for Job</.button>
+      </.link>
+    </:actions>
+  
+  </.header>
+  
+  <.list>
+    <:item title="Title"><%= @job.title %></:item>
+    <:item title="Industry"><%= @job.industry.name %></:item>
+    <:item title="Description"><%= @job.description %></:item>
+    <:item title="Country"><%= @job.country %></:item>
+  </.list>
+  
+  <.back navigate={~p"/openings"}>Back to Job Listings</.back>
+  

@@ -1,0 +1,26 @@
+<.header>
+  Current Job Openings
+  <:actions>
+    <.link href={~p"/openings"}>
+      <.button>All Openings</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.simple_form :let={f} for={@changeset} action={~p"/openings"} method="get">
+  <.input field={f[:page]} type="hidden" value="1"/>
+  <.input field={f[:industry]} type="select" label="Industry" options={@industries}/>
+  <:actions>
+    <.button>Filter by Industry</.button>
+  </:actions>
+</.simple_form>
+
+
+<.table id="jobs" rows={@jobs} row_click={&JS.navigate(~p"/openings/#{&1}")}>
+  <:col :let={job} label="Title"><%= job.title %></:col>
+  <:col :let={job} label="Industry"><%= job.industry.name %></:col>
+  <:col :let={job} label="Country"><%= job.country %></:col>
+  <:action :let={job}>
+      <.link navigate={~p"/openings/#{job}"}>...</.link>
+  </:action>
+</.table>
