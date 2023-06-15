@@ -6,11 +6,10 @@ defmodule JobifyWeb.GeneralJobController do
 
   def index(conn, params) do
     {changeset, filter} = JobifyWeb.Filters.JobFilter.changeset(params["job_filter"])
-    # IO.inspect(filter)
-    # total = Collection.count_groups(group_filter)
+    total = Jobs.count(filter)
     jobs = Jobs.list_jobs(filter)
     industries = Jobs.list_industries_options()
-    render(conn, :index, jobs: jobs, industries: industries, changeset: changeset)
+    render(conn, :index, jobs: jobs, industries: industries, changeset: changeset, total: total)
   end
 
   def show(conn, %{"id" => id}) do

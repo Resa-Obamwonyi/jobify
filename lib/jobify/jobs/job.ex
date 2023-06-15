@@ -30,16 +30,16 @@ defmodule Jobify.Jobs.Job do
     from(job in query, where: job.industry_id == ^term)
   end
 
-  # def pagination(query, nil) do
-  #   pagination(query, 1)
-  # end
+  def pagination(query, nil) do
+    pagination(query, 1)
+  end
 
-  # def pagination(query, page) do
-  #   limit = 10
-  #   offset = (page - 1) * limit
+  def pagination(query, page) do
+    limit = 10
+    offset = (page - 1) * limit
 
-  #   query
-  #   |> offset(^offset)
-  #   |> limit(^limit)
-  # end
+    query
+    |> offset(^offset)
+    |> limit(^limit)
+  end
 end

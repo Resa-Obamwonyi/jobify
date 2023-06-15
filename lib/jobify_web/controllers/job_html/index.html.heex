@@ -35,3 +35,29 @@
       </.link>
   </:action>
 </.table>
+
+<.simple_form :let={f} for={@changeset} action={~p"/openings"} method="get">
+  Pagination
+  Limit: 10
+  Page: <%= Ecto.Changeset.get_field(@changeset, :page) %>/<%= ceil(@total / 10) %>
+<.input field={f[:industries]} type="hidden"/>
+
+<%= if (ceil(@total / 10) - Ecto.Changeset.get_field(@changeset, :page)) >= 1  do %>
+  <.input field={f[:page]} type="hidden" value={Ecto.Changeset.get_field(@changeset, :page)+1}/>
+    <.button>
+      Next
+    </.button>
+<% end %>
+
+<%= if (ceil(@total / 10) - Ecto.Changeset.get_field(@changeset, :page)) < 1  && ceil(@total / 10) > 1 do %>
+  <.input field={f[:page]} type="hidden" value={Ecto.Changeset.get_field(@changeset, :page)-1}/>
+    <.button>
+      Back
+    </.button>
+<% end %>
+
+<%= if ceil(@total / 10) <= 1 do %>
+  <.input field={f[:page]} type="hidden" value={Ecto.Changeset.get_field(@changeset, :page)}/>
+<% end %>
+
+</.simple_form>

@@ -22,7 +22,7 @@ defmodule Jobify.Jobs do
 
     from(job in Job, where: job.published == :true, order_by: [desc: job.inserted_at])
     |> Job.industry(filter.industry)
-    # |> Job.pagination(filter.page)
+    |> Job.pagination(filter.page)
     |> Repo.all()
     |> Repo.preload(:industry)
   end
@@ -42,6 +42,12 @@ defmodule Jobify.Jobs do
 
   """
   def get_job!(id), do: Repo.get!(Job, id) |> Repo.preload(:industry)
+
+  def count(filter) do
+    Job
+    |> Job.industry(filter.industry)
+    |> Repo.aggregate(:count)
+  end
 
   @doc """
   Creates a job.
