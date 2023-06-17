@@ -9,7 +9,7 @@
 
 <.simple_form :let={f} for={@changeset} action={~p"/openings"} method="get">
   <.input field={f[:page]} type="hidden" value="1"/>
-  <.input field={f[:industry]} type="select" label="Industry" options={@industries}/>
+  <.input field={f[:industry]} type="select" label="Industry" options={@industries} prompt=" "/>
   <:actions>
     <.button>Filter by Industry</.button>
   </:actions>
