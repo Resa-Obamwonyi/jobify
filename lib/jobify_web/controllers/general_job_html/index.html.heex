@@ -1,22 +1,27 @@
-<.header class="section">
-  Current Job Openings
-  <:actions>
-    <.link href={~p"/openings"}>
-      <.button>All Openings</.button>
-    </.link>
-  </:actions>
+<.header class="section is-flex is-justify-content-space-between	">
+  <p class="title">
+    Current Job Openings
+  </p>
+  <p class="subtitle-1">
+    Apply for all the roles you qualify for or are interested in.
+  </p>
+    <:actions>
+      <.link href={~p"/openings"}>
+        <.button>View All Openings</.button>
+      </.link>
+    </:actions>
 </.header>
 
-<.simple_form :let={f} for={@changeset} action={~p"/openings"} method="get" class="section">
+<.simple_form :let={f} for={@changeset} action={~p"/openings"} method="get" class="section is-flex is-justify-content-end	">
   <.input field={f[:page]} type="hidden" value="1"/>
-  <.input field={f[:industry]} type="select" label="Industry" options={@industries} prompt=" "/>
+  <.input field={f[:industry]} type="select" options={@industries} prompt=" "/>
   <:actions>
     <.button>Filter by Industry</.button>
   </:actions>
 </.simple_form>
 
 
-<.table id="jobs" rows={@jobs} row_click={&JS.navigate(~p"/openings/#{&1}")} class="section">
+<.table id="jobs" rows={@jobs} row_click={&JS.navigate(~p"/openings/#{&1}")}>
   <:col :let={job} label="Title"><%= job.title %></:col>
   <:col :let={job} label="Industry"><%= job.industry.name %></:col>
   <:col :let={job} label="Country"><%= job.country %></:col>
@@ -26,8 +31,8 @@
 </.table>
 
 
-<.simple_form :let={f} for={@changeset} action={~p"/openings"} method="get" class="pagination is-medium">
-  <p>Pagination Limit: 10 Page: <%= Ecto.Changeset.get_field(@changeset, :page) %>/<%= ceil(@total / 10) %> </p>
+<.simple_form :let={f} for={@changeset} action={~p"/openings"} method="get" class="pagination is-flex is-justify-content-space-evenly	">
+  <p class="subtitle-1 pl-5">Pagination Limit: 10 Page: <%= Ecto.Changeset.get_field(@changeset, :page) %>/<%= ceil(@total / 10) %> </p>
   <.input field={f[:industries]} type="hidden"/>
 
 <%= if (ceil(@total / 10) - Ecto.Changeset.get_field(@changeset, :page)) >= 1  do %>
