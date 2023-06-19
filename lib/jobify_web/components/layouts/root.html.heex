@@ -26,11 +26,6 @@
                     Home
                   </.link>
                 </li>
-                <li class="button has-background-warning is-light">
-                  <.link href={~p"/openings"} class="has-text-black">
-                    Jobs
-                  </.link>
-                </li>
               </ul>
             </div>
           </div>
@@ -42,18 +37,18 @@
           <div class="buttons">
             <ul class="is-flex is-justify-content-right	">
               <%= if @current_user do %>
-                <li class="">
+                <li class="button has-background-white is-light">
                   <%= @current_user.email %>
                 </li>
-                <li>
+                <li class="button has-background-info is-light">
                   <.link href={~p"/users/settings"}
-                    class="text-[0.8125rem] leading-6 text-zinc-900 font-semibold hover:text-zinc-700">
+                    class="has-text-black">
                     Settings
                   </.link>
                 </li>
-                <li>
+                <li class="button has-background-danger is-light">
                   <.link href={~p"/users/log_out"} method="delete"
-                    class="text-[0.8125rem] leading-6 text-zinc-900 font-semibold hover:text-zinc-700">
+                    class="has-text-black">
                     Log out
                   </.link>
                 </li>
@@ -64,11 +59,6 @@
                     </.link>
                   </li>
                   <% end %>
-                    <li class="button has-background-warning is-light">
-                      <.link href={~p"/openings"} class="has-text-black">
-                        View Job Listings
-                      </.link>
-                    </li>
             </ul>
           </div>
         </div>
