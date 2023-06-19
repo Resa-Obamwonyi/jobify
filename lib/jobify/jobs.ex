@@ -21,7 +21,6 @@ defmodule Jobify.Jobs do
     from(job in Job, where: job.published == :true, order_by: [desc: job.inserted_at])
     |> Job.industry(filter.industry)
     |> Job.pagination(filter.page)
-    # |> Repo.apply_filters(conn)
     |> Repo.all()
     |> Repo.preload(:industry)
   end
@@ -31,7 +30,6 @@ defmodule Jobify.Jobs do
     from(job in Job, order_by: [desc: job.inserted_at])
     |> Job.industry(filter.industry)
     |> Job.pagination(filter.page)
-    # |> Repo.apply_filters(conn)
     |> Repo.all()
     |> Repo.preload(:industry)
   end
