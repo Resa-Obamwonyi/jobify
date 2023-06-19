@@ -1,4 +1,4 @@
-<.header>
+<.header class="section">
   Current Job Openings
   <:actions>
     <.link href={~p"/openings"}>
@@ -7,7 +7,7 @@
   </:actions>
 </.header>
 
-<.simple_form :let={f} for={@changeset} action={~p"/openings"} method="get">
+<.simple_form :let={f} for={@changeset} action={~p"/openings"} method="get" class="section">
   <.input field={f[:page]} type="hidden" value="1"/>
   <.input field={f[:industry]} type="select" label="Industry" options={@industries} prompt=" "/>
   <:actions>
@@ -16,7 +16,7 @@
 </.simple_form>
 
 
-<.table id="jobs" rows={@jobs} row_click={&JS.navigate(~p"/openings/#{&1}")}>
+<.table id="jobs" rows={@jobs} row_click={&JS.navigate(~p"/openings/#{&1}")} class="section">
   <:col :let={job} label="Title"><%= job.title %></:col>
   <:col :let={job} label="Industry"><%= job.industry.name %></:col>
   <:col :let={job} label="Country"><%= job.country %></:col>
@@ -26,22 +26,20 @@
 </.table>
 
 
-<.simple_form :let={f} for={@changeset} action={~p"/openings"} method="get">
-  Pagination
-  Limit: 10
-  Page: <%= Ecto.Changeset.get_field(@changeset, :page) %>/<%= ceil(@total / 10) %>
-<.input field={f[:industries]} type="hidden"/>
+<.simple_form :let={f} for={@changeset} action={~p"/openings"} method="get" class="pagination is-medium">
+  <p>Pagination Limit: 10 Page: <%= Ecto.Changeset.get_field(@changeset, :page) %>/<%= ceil(@total / 10) %> </p>
+  <.input field={f[:industries]} type="hidden"/>
 
 <%= if (ceil(@total / 10) - Ecto.Changeset.get_field(@changeset, :page)) >= 1  do %>
   <.input field={f[:page]} type="hidden" value={Ecto.Changeset.get_field(@changeset, :page)+1}/>
-    <.button>
+    <.button class="pagination-next is-light">
       Next
     </.button>
 <% end %>
 
 <%= if (ceil(@total / 10) - Ecto.Changeset.get_field(@changeset, :page)) < 1  && ceil(@total / 10) > 1 do %>
   <.input field={f[:page]} type="hidden" value={Ecto.Changeset.get_field(@changeset, :page)-1}/>
-    <.button>
+    <.button class="pagination-previous is-light">
       Back
     </.button>
 <% end %>

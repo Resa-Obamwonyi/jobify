@@ -114,8 +114,8 @@ defmodule JobifyWeb.CoreComponents do
       role="alert"
       class={[
         "fixed top-2 right-2 w-80 sm:w-96 z-50 rounded-lg p-3 ring-1",
-        @kind == :info && "bg-emerald-50 text-emerald-800 ring-emerald-500 fill-cyan-900",
-        @kind == :error && "bg-rose-50 text-rose-900 shadow-md ring-rose-500 fill-rose-900"
+        @kind == :info && "notification is-primary",
+        @kind == :error && "notification is-danger"
       ]}
       {@rest}
     >
@@ -213,8 +213,7 @@ defmodule JobifyWeb.CoreComponents do
     <button
       type={@type}
       class={[
-        "phx-submit-loading:opacity-75 rounded-lg bg-zinc-900 hover:bg-zinc-700 py-2 px-3",
-        "text-sm font-semibold leading-6 text-white active:text-white/80",
+        "button is-primary is-light",
         @class
       ]}
       {@rest}
@@ -289,7 +288,7 @@ defmodule JobifyWeb.CoreComponents do
 
     ~H"""
     <div phx-feedback-for={@name}>
-      <label class="flex items-center gap-4 text-sm leading-6 text-zinc-600">
+      <label class="checkbox">
         <input type="hidden" name={@name} value="false" />
         <input
           type="checkbox"
@@ -309,8 +308,8 @@ defmodule JobifyWeb.CoreComponents do
 
   def input(%{type: "select"} = assigns) do
     ~H"""
-    <div phx-feedback-for={@name}>
-      <.label for={@id}><%= @label %></.label>
+    <div phx-feedback-for={@name} class="select is-normal">
+      <.label for={@id} class="label"><%= @label %></.label>
       <select
         id={@id}
         name={@name}
@@ -328,8 +327,8 @@ defmodule JobifyWeb.CoreComponents do
 
   def input(%{type: "textarea"} = assigns) do
     ~H"""
-    <div phx-feedback-for={@name}>
-      <.label for={@id}><%= @label %></.label>
+    <div phx-feedback-for={@name} class="textarea">
+      <.label for={@id} class="label"><%= @label %></.label>
       <textarea
         id={@id}
         name={@name}
@@ -349,8 +348,8 @@ defmodule JobifyWeb.CoreComponents do
   # All other inputs text, datetime-local, url, password, etc. are handled here...
   def input(assigns) do
     ~H"""
-    <div phx-feedback-for={@name}>
-      <.label for={@id}><%= @label %></.label>
+    <div phx-feedback-for={@name} class="field">
+      <.label for={@id} class="label"><%= @label %></.label>
       <input
         type={@type}
         name={@name}
@@ -454,7 +453,7 @@ defmodule JobifyWeb.CoreComponents do
       end
 
     ~H"""
-    <div class="overflow-y-auto px-4 sm:overflow-visible sm:px-0">
+    <div class="overflow-y-auto px-4 sm:overflow-visible sm:px-0 table is-hoverable ">
       <table class="w-[40rem] mt-11 sm:w-full">
         <thead class="text-sm text-left leading-6 text-zinc-500">
           <tr>
