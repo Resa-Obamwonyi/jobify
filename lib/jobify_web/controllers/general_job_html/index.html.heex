@@ -1,4 +1,4 @@
-<.header class="section is-flex is-justify-content-space-between	">
+<.header class="section is-flex is-justify-content-space-between">
   <p class="title">
     Current Job Openings
   </p>
@@ -12,7 +12,7 @@
     </:actions>
 </.header>
 
-<.simple_form :let={f} for={@changeset} action={~p"/openings"} method="get" class="section is-flex is-justify-content-end	">
+<.simple_form :let={f} for={@changeset} action={~p"/openings"} method="get" class="section is-flex is-justify-content-end	\">
   <.input field={f[:page]} type="hidden" value="1"/>
   <.input field={f[:industry]} type="select" options={@industries} prompt=" "/>
   <:actions>
