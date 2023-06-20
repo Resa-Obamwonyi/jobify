@@ -171,7 +171,7 @@ defmodule JobifyWeb.CoreComponents do
         </:actions>
       </.simple_form>
   """
-  attr :for, :any, required: true, doc: "the datastructure for the form"
+  attr :for, :any, required: false, default: %{}, doc: "the datastructure for the form"
   attr :as, :any, default: nil, doc: "the server side parameter to collect all input under"
 
   attr :rest, :global,
@@ -544,6 +544,52 @@ defmodule JobifyWeb.CoreComponents do
         <.icon name="hero-arrow-left-solid" class="h-3 w-3" />
         <%= render_slot(@inner_block) %>
       </.link>
+    </div>
+    """
+  end
+
+  # Adds pagination component to be used in index files
+  attr :filter, :map, required: true
+  attr :total, :integer, required: true
+  def pagination(assigns) do
+    ~H"""
+    <div>
+      <p class="subtitle-1 pl-5">
+        Pagination Limit: <%= @filter.per_page %> Page: <%= @filter.page %>/<%= ceil(
+          @total / @filter.per_page
+        ) %>
+      </p>
+      <.input name="industry" value={@filter.industry} type="hidden" />
+
+      <%= if (ceil(@total / @filter.per_page) - @filter.page) >= 1  do %>
+        <.input name="page" type="hidden" value={@filter.page + 1} />
+        <.button class="pagination-next is-light">
+          Next
+        </.button>
+      <% end %>
+
+      <%= if (ceil(@total / @filter.per_page) - @filter.page) < 1 do %>
+        <.input name="page" type="hidden" value={@filter.page - 1} />
+        <.button class="pagination-previous is-light">
+          Back
+        </.button>
+      <% end %>
+
+      <%!-- <%= if (ceil(@total / @filter.per_page) - @filter.page) <= 1  do %>
+        <.input name="page" type="hidden" value={@filter.page + 1} />
+        <.button class="pagination-next is-light">
+          Next
+        </.button>
+
+        <.input name="page" type="hidden" value={@filter.page - 1} />
+        <.button class="pagination-previous is-light">
+          Back
+        </.button>
+      <% end %> --%>
+
+      <%= if ceil(@total / @filter.per_page) <= 1 do %>
+        <.input name="page" type="hidden" value={@filter.page} />
+      <% end %>
     </div>
     """
   end

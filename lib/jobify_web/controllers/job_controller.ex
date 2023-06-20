@@ -4,12 +4,18 @@ defmodule JobifyWeb.JobController do
   alias Jobify.Jobs
   alias Jobify.Jobs.Job
 
+
+  @filters_params_schema %{
+    industry: [type: :integer],
+    page: [type: :integer, number: [greater_than: 0], default: 1],
+    per_page: [type: :integer, default: 2]
+  }
   def index(conn, params) do
-    {changeset, filter} = JobifyWeb.Filters.JobFilter.changeset(params["job_filter"])
+    filter = Tarams.cast!(params, @filters_params_schema)
     total = Jobs.count_jobs_admin(filter)
     jobs = Jobs.list_jobs_admin(filter)
     industries = Jobs.list_industries_options()
-    render(conn, :index, jobs: jobs, industries: industries, changeset: changeset, total: total)
+    render(conn, :index, jobs: jobs, industries: industries, total: total, filter: filter)
   end
 
   def new(conn, _params) do

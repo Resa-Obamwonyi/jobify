@@ -2,6 +2,7 @@ defmodule JobifyWeb.Router do
   use JobifyWeb, :router
 
   import JobifyWeb.UserAuth
+  import Tarams, only: [plug_scrub: 2]
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -11,6 +12,7 @@ defmodule JobifyWeb.Router do
     plug :protect_from_forgery
     plug :put_secure_browser_headers
     plug :fetch_current_user
+    plug :plug_scrub
   end
 
   pipeline :api do

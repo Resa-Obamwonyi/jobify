@@ -52,7 +52,7 @@ defmodule Jobify.MixProject do
       {:jason, "~> 1.2"},
       {:plug_cowboy, "~> 2.5"},
       {:filterable, "~> 0.7.4"},
-      {:tarams, "~> 1.0.0"}
+      {:tarams, "~> 1.7.1"}
     ]
   end
 

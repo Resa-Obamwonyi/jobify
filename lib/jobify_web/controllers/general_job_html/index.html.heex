@@ -12,11 +12,11 @@
     </:actions>
 </.header>
 
-<.simple_form :let={f} for={@changeset} action={~p"/openings"} method="get" class="section is-flex is-justify-content-end	\">
-  <.input field={f[:page]} type="hidden" value="1"/>
-  <.input field={f[:industry]} type="select" options={@industries} prompt=" "/>
+<.simple_form action={~p"/openings"} method="get" class="section is-flex is-justify-content-end	">
+  <.input name="page" type="hidden" value="1"/>
+  <.input name="industry" type="select" label="Industry" value={@filter.industry} options={@industries}  prompt=" "/>
   <:actions>
-    <.button>Filter by Industry</.button>
+    <.button>Filter By Industry</.button>
   </:actions>
 </.simple_form>
 
@@ -31,26 +31,6 @@
 </.table>
 
 
-<.simple_form :let={f} for={@changeset} action={~p"/openings"} method="get" class="pagination is-flex is-justify-content-space-evenly	">
-  <p class="subtitle-1 pl-5">Pagination Limit: 10 Page: <%= Ecto.Changeset.get_field(@changeset, :page) %>/<%= ceil(@total / 10) %> </p>
-  <.input field={f[:industries]} type="hidden"/>
-
-<%= if (ceil(@total / 10) - Ecto.Changeset.get_field(@changeset, :page)) >= 1  do %>
-  <.input field={f[:page]} type="hidden" value={Ecto.Changeset.get_field(@changeset, :page)+1}/>
-    <.button class="pagination-next is-light">
-      Next
-    </.button>
-<% end %>
-
-<%= if (ceil(@total / 10) - Ecto.Changeset.get_field(@changeset, :page)) < 1  && ceil(@total / 10) > 1 do %>
-  <.input field={f[:page]} type="hidden" value={Ecto.Changeset.get_field(@changeset, :page)-1}/>
-    <.button class="pagination-previous is-light">
-      Back
-    </.button>
-<% end %>
-
-<%= if ceil(@total / 10) <= 1 do %>
-  <.input field={f[:page]} type="hidden" value={Ecto.Changeset.get_field(@changeset, :page)}/>
-<% end %>
-
+<.simple_form action={~p"/openings"} method="get">
+  <.pagination filter={@filter} total={@total} />
 </.simple_form>

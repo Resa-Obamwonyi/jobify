@@ -6,11 +6,15 @@ defmodule Jobify.Jobs.Job do
   use Filterable.Phoenix.Model
 
 
-  # filterable do
-  #   filter industry(query, value, _conn) do
-  #     query |> where(industry_id: ^value)
-  #   end
-  # end
+  filterable do
+    paginateable per_page: 10
+
+    filter industry(query, value) do
+      query |> where(industry_id: ^value)
+    end
+  end
+
+
 
   schema "jobs" do
     field :country, :string
