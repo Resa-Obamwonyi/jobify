@@ -1,5 +1,7 @@
-<.header>
-  Industry <%= @industry.id %>
+<.header class="section is-flex is-justify-content-space-between">
+  <p class="title">
+    <%= @industry.name %> Industry
+  </p>
   <:subtitle>This is a industry record from your database.</:subtitle>
   <:actions>
     <.link href={~p"/industries/#{@industry}/edit"}>
@@ -8,8 +10,12 @@
   </:actions>
 </.header>
 
-<.list>
-  <:item title="Name"><%= @industry.name %></:item>
-</.list>
+<div class="section">
+  <.list>
+    <:item title="Industry Title">
+      <%= @industry.name %>
+    </:item>
+  </.list>
 
-<.back navigate={~p"/industries"}>Back to industries</.back>
+  <.back navigate={~p"/industries"}>Back to industries</.back>
+</div>

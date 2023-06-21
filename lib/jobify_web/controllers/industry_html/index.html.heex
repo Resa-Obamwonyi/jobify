@@ -1,5 +1,11 @@
-<.header>
-  Listing Industries
+<.header class="section is-flex is-justify-content-space-between">
+  <p class="title">
+    Listing Industries
+  </p>
+
+  <p class="subtitle-1">
+    Here is a list of all Industries</p>
+
   <:actions>
     <.link href={~p"/industries/new"}>
       <.button>New Industry</.button>
@@ -8,7 +14,9 @@
 </.header>
 
 <.table id="industries" rows={@industries} row_click={&JS.navigate(~p"/industries/#{&1}")}>
-  <:col :let={industry} label="Name"><%= industry.name %></:col>
+  <:col :let={industry} label="Name">
+    <%= industry.name %>
+  </:col>
   <:action :let={industry}>
     <div class="sr-only">
       <.link navigate={~p"/industries/#{industry}"}>Show</.link>
