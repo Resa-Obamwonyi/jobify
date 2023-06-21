@@ -12,7 +12,7 @@
     </:actions>
 </.header>
 
-<.simple_form action={~p"/openings"} method="get" class="section is-flex is-justify-content-end	">
+<.simple_form action={~p"/openings"} method="get" class="section is-flex is-justify-content-right	">
   <.input name="page" type="hidden" value="1"/>
   <.input name="industry" type="select" label="Industry" value={@filter.industry} options={@industries}  prompt=" "/>
   <:actions>
@@ -20,7 +20,7 @@
   </:actions>
 </.simple_form>
 
-  <.simple_form action={~p"/openings"} method="get" class="section is-flex is-justify-content-end	">
+  <.simple_form action={~p"/openings"} method="get" class="section is-flex is-justify-content-left	">
     <.input name="page" type="hidden" value="1"/>
     <.input name="search" type="text" placeholder="search by name" value={@filter.search}/>
   <:actions>

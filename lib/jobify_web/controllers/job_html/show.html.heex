@@ -1,5 +1,8 @@
-<.header>
-  <%= @job.title %>, <%= @job.country %>
+<.header class="section is-flex is-justify-content-space-between">
+  <p class="title">
+    <%= @job.title %>, <%= @job.country %>
+  </p>
+
   <:subtitle>Please Apply If Qualified</:subtitle>
 
   <:actions>
@@ -10,11 +13,18 @@
 
 </.header>
 
-<.list>
-  <:item title="Title"><%= @job.title %></:item>
-  <:item title="Industry"><%= @job.industry.name %></:item>
-  <:item title="Description"><%= @job.description %></:item>
-  <:item title="Country"><%= @job.country %></:item>
-</.list>
+<div class="section">
+  <.list>
+    <:item title="Industry">
+      <%= @job.industry.name %>
+    </:item>
+    <:item title="Description">
+      <%= @job.description %>
+    </:item>
+    <:item title="Country">
+      <%= @job.country %>
+    </:item>
+  </.list>
+  <.back navigate={~p"/jobs"}>Back to jobs</.back>
+</div>
 
-<.back navigate={~p"/jobs"}>Back to jobs</.back>

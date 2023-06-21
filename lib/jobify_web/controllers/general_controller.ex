@@ -8,7 +8,7 @@ defmodule JobifyWeb.GeneralJobController do
     industry: [type: :integer],
     page: [type: :integer, number: [greater_than: 0], default: 1],
     search: [type: :string, default: nil],
-    per_page: [type: :integer, default: 2]
+    per_page: [type: :integer, default: 5]
   }
 
   def index(conn, params) do

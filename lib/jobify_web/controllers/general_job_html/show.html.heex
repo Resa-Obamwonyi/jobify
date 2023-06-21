@@ -1,21 +1,27 @@
-<.header>
+<.header class="section is-flex is-justify-content-space-between">
+  <p class="title">
     <%= @job.title %>, <%= @job.country %>
-    <:subtitle>Please Apply If Qualified</:subtitle>
-  
-    <:actions>
-      <.link href={~p"/openings/#{@job}"}>
-        <.button>Apply for Job</.button>
-      </.link>
-    </:actions>
-  
-  </.header>
-  
+  </p>
+  <:subtitle>Please Apply If Qualified</:subtitle>
+  <:actions>
+    <.link href={~p"/openings/#{@job}"}>
+      <.button>Apply for Job</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<div class="section">
   <.list>
-    <:item title="Title"><%= @job.title %></:item>
-    <:item title="Industry"><%= @job.industry.name %></:item>
-    <:item title="Description"><%= @job.description %></:item>
-    <:item title="Country"><%= @job.country %></:item>
+    <:item title="Industry">
+      <%= @job.industry.name %>
+    </:item>
+    <:item title="Description">
+      <%= @job.description %>
+    </:item>
+    <:item title="Country">
+      <%= @job.country %>
+    </:item>
   </.list>
-  
-  <.back navigate={~p"/openings"}>Back to Job Listings</.back>
-  
+<.back navigate={~p"/openings"}>Back to Job Listings</.back>
+
+</div>

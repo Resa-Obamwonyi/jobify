@@ -6,7 +6,7 @@ defmodule Jobify.Jobs.Job do
   use Filterable.Phoenix.Model
 
   filterable do
-    paginateable(per_page: 10)
+    paginateable(per_page: 5)
 
     filter industry(query, value) do
       query |> where(industry_id: ^value)

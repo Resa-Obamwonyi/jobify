@@ -37,9 +37,6 @@ Here is a List of all Jobs in the Database</p>
   <:col :let={job} label="Country"><%= job.country %></:col>
   <:col :let={job} label="Published"><%= job.published %></:col>
   <:action :let={job}>
-    <div class="sr-only">
-      <.link navigate={~p"/jobs/#{job}"}>See More</.link>
-    </div>
       <.link navigate={~p"/jobs/#{job}/edit"}>Edit</.link>
   </:action>
   <:action :let={job}>

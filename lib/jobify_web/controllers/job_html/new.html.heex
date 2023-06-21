@@ -1,6 +1,8 @@
-<.header>
-  New Job
-  <:subtitle>Use this form to manage job records in your database.</:subtitle>
+<.header class="section is-flex is-justify-content-space-between">
+  <p class="title">
+   Add a New Job
+  </p>
+  <:subtitle class="title">Use this form to manage job records in your database.</:subtitle>
 </.header>
 
 <.job_form changeset={@changeset} action={~p"/jobs"} industries={@industries}/>
