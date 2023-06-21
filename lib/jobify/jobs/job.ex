@@ -5,16 +5,13 @@ defmodule Jobify.Jobs.Job do
   alias Jobify.Jobs.Industry
   use Filterable.Phoenix.Model
 
-
   filterable do
-    paginateable per_page: 10
+    paginateable(per_page: 10)
 
     filter industry(query, value) do
       query |> where(industry_id: ^value)
     end
   end
-
-
 
   schema "jobs" do
     field :country, :string
@@ -34,24 +31,15 @@ defmodule Jobify.Jobs.Job do
     |> assoc_constraint(:industry, message: "This Industry ID does not exist!!")
   end
 
-  def industry(query, nil) do
+  def search(query, nil) do
     query
   end
 
-  def industry(query, term) do
-    from(job in query, where: job.industry_id == ^term)
-  end
+  def search(query, term) do
+    wildcard_search = "%#{term}%"
 
-  def pagination(query, nil) do
-    pagination(query, 1)
-  end
-
-  def pagination(query, page) do
-    limit = 10
-    offset = (page - 1) * limit
-
-    query
-    |> offset(^offset)
-    |> limit(^limit)
+    from(job in query,
+      where: ilike(job.title, ^wildcard_search)
+    )
   end
 end

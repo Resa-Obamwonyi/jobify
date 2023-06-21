@@ -213,7 +213,7 @@ defmodule JobifyWeb.CoreComponents do
     <button
       type={@type}
       class={[
-        "button is-primary is-light",
+        "button is-primary is-light mb-5",
         @class
       ]}
       {@rest}
@@ -308,15 +308,9 @@ defmodule JobifyWeb.CoreComponents do
 
   def input(%{type: "select"} = assigns) do
     ~H"""
-    <div phx-feedback-for={@name} class="select is-normal">
+    <div phx-feedback-for={@name} class="select">
       <.label for={@id} class="label"><%= @label %></.label>
-      <select
-        id={@id}
-        name={@name}
-        class="mt-2 block w-full rounded-md border border-gray-300 bg-white shadow-sm focus:border-zinc-400 focus:ring-0 sm:text-sm"
-        multiple={@multiple}
-        {@rest}
-      >
+      <select id={@id} name={@name} class="" multiple={@multiple} {@rest}>
         <option :if={@prompt} value=""><%= @prompt %></option>
         <%= Phoenix.HTML.Form.options_for_select(@options, @value) %>
       </select>
@@ -551,6 +545,7 @@ defmodule JobifyWeb.CoreComponents do
   # Adds pagination component to be used in index files
   attr :filter, :map, required: true
   attr :total, :integer, required: true
+
   def pagination(assigns) do
     ~H"""
     <div>
@@ -561,20 +556,22 @@ defmodule JobifyWeb.CoreComponents do
       </p>
       <.input name="industry" value={@filter.industry} type="hidden" />
 
-      <%= if (ceil(@total / @filter.per_page) - @filter.page) >= 1  do %>
+      <%!-- <%= if (ceil(@total / @filter.per_page) - @filter.page) >= 1 do %> --%>
+      <%= if ceil(@total / @filter.per_page) > 1  and @filter.page < ceil(@total / @filter.per_page) do %>
         <.input name="page" type="hidden" value={@filter.page + 1} />
         <.button class="pagination-next is-light">
           Next
         </.button>
       <% end %>
 
-      <%= if (ceil(@total / @filter.per_page) - @filter.page) < 1 do %>
+      <%= if ceil(@total / @filter.per_page) >= @filter.page  and @filter.page != 1 do %>
         <.input name="page" type="hidden" value={@filter.page - 1} />
         <.button class="pagination-previous is-light">
           Back
         </.button>
       <% end %>
 
+      <%!-- if page greater than 1 and less than total show back and next --%>
       <%!-- <%= if (ceil(@total / @filter.per_page) - @filter.page) <= 1  do %>
         <.input name="page" type="hidden" value={@filter.page + 1} />
         <.button class="pagination-next is-light">

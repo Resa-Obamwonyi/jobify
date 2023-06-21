@@ -7,6 +7,7 @@ defmodule JobifyWeb.GeneralJobController do
   @filters_params_schema %{
     industry: [type: :integer],
     page: [type: :integer, number: [greater_than: 0], default: 1],
+    search: [type: :string, default: nil],
     per_page: [type: :integer, default: 2]
   }
 

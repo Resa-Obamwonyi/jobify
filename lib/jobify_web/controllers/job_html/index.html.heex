@@ -14,11 +14,19 @@ Here is a List of all Jobs in the Database</p>
   </:actions>
 </.header>
 
-<.simple_form action={~p"/jobs"} method="get" class="section is-flex is-justify-content-end	">
+<.simple_form action={~p"/jobs"} method="get" class="section is-flex is-justify-content-right	">
   <.input name="page" type="hidden" value="1"/>
   <.input name="industry" type="select" label="Industry" value={@filter.industry} options={@industries}  prompt=" "/>
   <:actions>
     <.button>Filter By Industry</.button>
+  </:actions>
+</.simple_form>
+
+<.simple_form action={~p"/jobs"} method="get" class="section is-flex is-justify-content-left	">
+  <.input name="page" type="hidden" value="1"/>
+  <.input name="search" type="text" placeholder="search by name" value={@filter.search}/>
+  <:actions>
+    <.button>Search</.button>
   </:actions>
 </.simple_form>
 

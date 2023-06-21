@@ -20,6 +20,13 @@
   </:actions>
 </.simple_form>
 
+  <.simple_form action={~p"/openings"} method="get" class="section is-flex is-justify-content-end	">
+    <.input name="page" type="hidden" value="1"/>
+    <.input name="search" type="text" placeholder="search by name" value={@filter.search}/>
+  <:actions>
+    <.button>Search</.button>
+  </:actions>
+</.simple_form>
 
 <.table id="jobs" rows={@jobs} row_click={&JS.navigate(~p"/openings/#{&1}")}>
   <:col :let={job} label="Title"><%= job.title %></:col>

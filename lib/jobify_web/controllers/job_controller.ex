@@ -4,12 +4,13 @@ defmodule JobifyWeb.JobController do
   alias Jobify.Jobs
   alias Jobify.Jobs.Job
 
-
   @filters_params_schema %{
     industry: [type: :integer],
     page: [type: :integer, number: [greater_than: 0], default: 1],
+    search: [type: :string, default: nil],
     per_page: [type: :integer, default: 2]
   }
+
   def index(conn, params) do
     filter = Tarams.cast!(params, @filters_params_schema)
     total = Jobs.count_jobs_admin(filter)
@@ -26,6 +27,7 @@ defmodule JobifyWeb.JobController do
 
   def create(conn, %{"job" => job_params}) do
     industries = Jobs.list_industries_options()
+
     case Jobs.create_job(job_params) do
       {:ok, job} ->
         conn

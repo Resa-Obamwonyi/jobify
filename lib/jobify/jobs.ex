@@ -21,6 +21,7 @@ defmodule Jobify.Jobs do
     from(job in Job, where: job.published == :true, order_by: [desc: job.inserted_at])
     |> Job.Filterable.apply_filters!(filter)
     |> elem(0)
+    |> Job.search(filter.search)
     |> Repo.all()
     |> Repo.preload(:industry)
   end
@@ -30,6 +31,7 @@ defmodule Jobify.Jobs do
     from(job in Job, order_by: [desc: job.inserted_at])
     |> Job.Filterable.apply_filters!(filter)
     |> elem(0)
+    |> Job.search(filter.search)
     |> Repo.all()
     |> Repo.preload(:industry)
   end
@@ -51,15 +53,19 @@ defmodule Jobify.Jobs do
 
   def count_jobs_general(filter) do
     from(job in Job, where: job.published == :true)
-    |> Job.industry(filter.industry)
+    |> Job.Filterable.apply_filters!(filter)
+    |> elem(0)
+    |> Job.search(filter.search)
+    |> exclude(:limit)
+    |> exclude(:offset)
     |> Repo.aggregate(:count)
   end
 
   def count_jobs_admin(filter) do
     Job
-    # |> Job.industry(filter.industry)
     |> Job.Filterable.apply_filters!(filter)
     |> elem(0)
+    |> Job.search(filter.search)
     # to get total correct count
     |> exclude(:limit)
     |> exclude(:offset)
