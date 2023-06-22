@@ -560,36 +560,16 @@ defmodule JobifyWeb.CoreComponents do
       </p>
       <.input name="industry" value={@filter.industry} type="hidden" />
 
-      <%!-- <%= if (ceil(@total / @filter.per_page) - @filter.page) >= 1 do %> --%>
       <%= if ceil(@total / @filter.per_page) > 1  and @filter.page < ceil(@total / @filter.per_page) do %>
-        <.input name="page" type="hidden" value={@filter.page + 1} />
-        <.button class="pagination-next is-light">
+        <.button class="pagination-next is-light" name="page" value={@filter.page + 1}>
           Next
         </.button>
       <% end %>
 
       <%= if ceil(@total / @filter.per_page) >= @filter.page  and @filter.page != 1 do %>
-        <.input name="page" type="hidden" value={@filter.page - 1} />
-        <.button class="pagination-previous is-light">
+        <.button class="pagination-previous is-light" name="page" value={@filter.page - 1}>
           Back
         </.button>
-      <% end %>
-
-      <%!-- if page greater than 1 and less than total show back and next --%>
-      <%!-- <%= if (ceil(@total / @filter.per_page) - @filter.page) <= 1  do %>
-        <.input name="page" type="hidden" value={@filter.page + 1} />
-        <.button class="pagination-next is-light">
-          Next
-        </.button>
-
-        <.input name="page" type="hidden" value={@filter.page - 1} />
-        <.button class="pagination-previous is-light">
-          Back
-        </.button>
-      <% end %> --%>
-
-      <%= if ceil(@total / @filter.per_page) <= 1 do %>
-        <.input name="page" type="hidden" value={@filter.page} />
       <% end %>
     </div>
     """

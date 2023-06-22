@@ -11,6 +11,11 @@ defmodule Jobify.Jobs.Job do
     filter industry(query, value) do
       query |> where(industry_id: ^value)
     end
+
+    filter search(query, value) do
+      wildcard_search = "%#{value}%"
+      query |> where([job], ilike(job.title, ^wildcard_search))
+    end
   end
 
   schema "jobs" do
@@ -29,17 +34,5 @@ defmodule Jobify.Jobs.Job do
     |> cast(attrs, [:title, :description, :country, :published, :industry_id])
     |> validate_required([:title, :description, :country, :industry_id])
     |> assoc_constraint(:industry, message: "This Industry ID does not exist!!")
-  end
-
-  def search(query, nil) do
-    query
-  end
-
-  def search(query, term) do
-    wildcard_search = "%#{term}%"
-
-    from(job in query,
-      where: ilike(job.title, ^wildcard_search)
-    )
   end
 end

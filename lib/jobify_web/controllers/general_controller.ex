@@ -13,6 +13,7 @@ defmodule JobifyWeb.GeneralJobController do
 
   def index(conn, params) do
     filter = Tarams.cast!(params, @filters_params_schema)
+    IO.inspect(filter)
     jobs = Jobs.list_jobs_general(filter)
     total = Jobs.count_jobs_general(filter)
     industries = Jobs.list_industries_options()

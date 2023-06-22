@@ -9,7 +9,16 @@ defmodule Jobify.MixProject do
       elixirc_paths: elixirc_paths(Mix.env()),
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
-      deps: deps()
+      deps: deps(),
+
+      # Docs
+      name: "Jobify",
+      source_url: "https://github.com/Resa-Obamwonyi/jobify",
+      homepage_url: "http://localhost:4000",
+      docs: [
+        main: "Jobify",
+        extras: ["README.md"]
+      ]
     ]
   end
 
@@ -52,7 +61,8 @@ defmodule Jobify.MixProject do
       {:jason, "~> 1.2"},
       {:plug_cowboy, "~> 2.5"},
       {:filterable, "~> 0.7.4"},
-      {:tarams, "~> 1.7.1"}
+      {:tarams, "~> 1.7.1"},
+      {:ex_doc, "~> 0.27", only: :dev, runtime: false},
     ]
   end
 
